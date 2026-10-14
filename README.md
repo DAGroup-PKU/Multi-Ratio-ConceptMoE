@@ -16,10 +16,9 @@
 
 <p><sup>*</sup> Work done at ByteDance Seed &nbsp; <sup>&dagger;</sup> Corresponding authors</p>
 
-<!-- Webpage URL remains blank until the public project page is available. -->
 <p>
   <a href="https://arxiv.org/pdf/2610.14074"><img src="https://img.shields.io/badge/Paper-b31b1b?logo=arxiv&amp;logoColor=white" alt="Paper"></a>
-  <a href=""><img src="https://img.shields.io/badge/Webpage-2ea44f?logo=googlechrome&amp;logoColor=white" alt="Webpage"></a>
+  <a href="https://dagroup-pku.github.io/Multi-Ratio-ConceptMoE-Web/"><img src="https://img.shields.io/badge/Webpage-2ea44f?logo=googlechrome&amp;logoColor=white" alt="Webpage"></a>
 </p>
 
 </div>

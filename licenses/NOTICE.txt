@@ -1,0 +1,21 @@
+StableVLA website template
+Source: https://github.com/DAGroup-PKU/StableVLA/tree/page
+Commit: c93813752e7714b34bfdb685793786675f3c434c
+The upstream repository includes an MIT license, preserved in StableVLA-MIT.txt.
+Its webpage also credits the template under CC BY-SA 4.0:
+https://creativecommons.org/licenses/by-sa/4.0/
+The adapted template retains that attribution and share-alike notice.
+Changes: paper content, figures, authors, and results replaced with Multi-Ratio
+ConceptMoE; video removed; compression controls, result switching, image zoom,
+and citation copying added. Upstream index.css and bulma.min.css are unchanged;
+stablevla-page.css contains the original page's inline styles.
+These template notices do not assign a license to the research figures or demo.
+
+Bulma 0.9.1
+Copyright 2020 Jeremy Thomas. MIT license (see Bulma-MIT.txt).
+Source: https://github.com/jgthms/bulma/tree/0.9.1
+
+Inter
+Copyright 2020 The Inter Project Authors (https://github.com/rsms/inter)
+SIL Open Font License 1.1, preserved in Inter-OFL.txt.
+Latin variable font obtained via Google Fonts and served locally.

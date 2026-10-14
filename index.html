@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Multi-Ratio ConceptMoE: one shared model, three compression ratios, and flexible compute allocation across interaction turns.">
+  <meta name="theme-color" content="#ffffff">
+  <meta property="og:title" content="One Model, Multiple Compute Budgets | Multi-Ratio ConceptMoE">
+  <meta property="og:description" content="A shared model for flexible compute across turns. Explore the method and results of Multi-Ratio ConceptMoE.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://dagroup-pku.github.io/Multi-Ratio-ConceptMoE-Web/assets/teaser.png?v=arxiv-2610.14074v1">
+  <meta property="og:url" content="https://dagroup-pku.github.io/Multi-Ratio-ConceptMoE-Web/">
+  <link rel="canonical" href="https://dagroup-pku.github.io/Multi-Ratio-ConceptMoE-Web/">
+  <title>Multi-Ratio ConceptMoE · One Model, Multiple Compute Budgets</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+  <link rel="stylesheet" href="static/css/stablevla-page.css">
+  <link rel="stylesheet" href="styles.css?v=mixed-clarity-1">
+  <script src="script.js?v=arxiv-2610.14074v1" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<main id="main">
+<!-- Hero layout and typography adapted directly from StableVLA's page branch. -->
+<section class="hero" id="top" aria-labelledby="paper-title">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered"><div class="column has-text-centered">
+        <h1 class="title is-1 publication-title" id="paper-title">One Model, Multiple Compute Budgets:<br>
+          <span class="gradient-text">Multi-Ratio ConceptMoE</span><br>
+          for Flexible Compute Across Turns</h1>
+        <p class="hero-summary"><strong>One shared model</strong> &nbsp;·&nbsp; <strong>CR2 / CR4 / CR8</strong> &nbsp;·&nbsp; flexible compute across turns</p>
+        <div class="is-size-5 publication-authors"><span class="author-block"><span class="author-name">Yiyang Fu</span><sup>1,2,*</sup>,</span>
+          <span class="author-block"><span class="author-name">Zihao Huang</span><sup>2</sup>,</span>
+          <span class="author-block"><span class="author-name">Dongchen Han</span><sup>2,3,*</sup>,</span>
+          <span class="author-block"><span class="author-name">Shukai Gong</span><sup>1</sup>,</span>
+          <br class="author-break">
+        <span class="author-block"><span class="author-name">Zhen Dong</span><sup>4</sup>,</span>
+          <span class="author-block"><span class="author-name">Qiyang Min</span><sup>2,†</sup>,</span>
+          <span class="author-block"><span class="author-name">Daquan Zhou</span><sup>1,†</sup></span>
+          </div>
+        <div class="is-size-6 affil-block"><span><sup>1</sup> Peking University</span><span><sup>2</sup> ByteDance Seed</span><span><sup>3</sup> Tsinghua University</span><span><sup>4</sup> University of California, Santa Barbara</span><br><small><sup>*</sup> Work done at ByteDance Seed <span>·</span> <sup>†</sup> Corresponding authors</small></div>
+        <div class="column has-text-centered"><div class="publication-links hero-actions">
+        <a class="external-link button is-normal is-rounded is-dark" id="paper-link" href="https://arxiv.org/pdf/2610.14074" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zM14 2v6h6M8 13h8M8 17h6"/></svg>Paper</a>
+        <a class="external-link button is-normal is-rounded is-dark" href="https://github.com/DAGroup-PKU/Multi-Ratio-ConceptMoE" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m8 7-5 5 5 5m8-10 5 5-5 5m-3-14-2 18"/></svg>Demo code</a>
+        <a class="external-link button is-normal is-rounded is-dark" href="#citation"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M8 4H5a2 2 0 0 0-2 2v3c0 2 2 2 2 3s-2 1-2 3v3a2 2 0 0 0 2 2h3m8-16h3a2 2 0 0 1 2 2v3c0 2-2 2-2 3s2 1 2 3v3a2 2 0 0 1-2 2h-3"/></svg>BibTeX</a>
+      </div></div>
+      </div></div>
+    </div>
+  </div>
+</section>
+<section class="section overview-section" id="overview" aria-label="Research overview">
+  <div class="container is-max-desktop">
+    <figure class="figure-card paper-figure">
+        <button class="figure-button" data-zoom="assets/teaser.png?v=arxiv-2610.14074v1" aria-label="Enlarge research overview figure"><img src="assets/teaser.png?v=arxiv-2610.14074v1" width="2200" height="1055" alt="Multi-turn compute demands and accuracy-compute comparisons on CodeChat and CoSQL"><span class="zoom-hint" aria-hidden="true">↗</span></button>
+        <figcaption class="figure-caption"><b>Flexible compute within a shared model.</b> Multi-Ratio ConceptMoE changes compression ratios across turns and improves the accuracy-compute trade-off on CodeChat and CoSQL.</figcaption>
+      </figure>
+    <div class="highlight-cards">
+      <div class="highlight-card"><div class="number">2 / 4 / 8</div><div class="label">Compression ratios<br>in one model</div></div>
+      <div class="highlight-card"><div class="number">6 of 6</div><div class="label">Wins against<br>compute-matched MoEs</div></div>
+      <div class="highlight-card"><div class="number">78.4%</div><div class="label">Fewer FLOPs than model routing</div><p class="fine-print">CodeChat · same turn-wise schedule</p></div>
+    </div>
+  </div>
+</section><section class="section section-light" id="abstract" aria-labelledby="abstract-title">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered section-title" id="abstract-title">Abstract</h2>
+    <div class="content has-text-justified"><p>Compute demand changes across conversational turns. Using a large model throughout can waste computation, while switching between independent models may require rebuilding their history states.</p>
+        <p>We introduce <strong>Multi-Ratio ConceptMoE</strong>, which jointly supports compression ratios of 2, 4, and 8 within a shared backbone. Lightweight full-token modules reduce compression-independent cost, ratio-specific boundary routers expose distinct compute budgets, and <strong>cross-ratio training</strong> prepares the model to process different compression granularities in the same context.</p>
+        <p>Across PTBench and SFTBench, all three fixed modes outperform their compute-matched MoE baselines. On CodeChat and CoSQL, mixed-ratio inference improves the accuracy-compute trade-off while avoiding the history re-prefill overhead accounted for when routing among independent models.</p></div>
+  </div>
+</section><section class="section" id="method" aria-labelledby="method-title">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered section-title" id="method-title">Method: Multi-Ratio ConceptMoE</h2>
+    <p class="section-intro">Only the boundary routers are ratio-specific. The encoder, concept backbone, DeChunk module, and decoder are shared.</p><figure class="figure-card paper-figure"><button class="figure-button" data-zoom="assets/method.png?v=arxiv-2610.14074v1" aria-label="Enlarge method architecture figure"><img src="assets/method.png?v=arxiv-2610.14074v1" width="1800" height="1320" loading="lazy" alt="Shared encoder and independent CR2, CR4, CR8 routers create compression views for a shared concept backbone, with single-ratio and cross-ratio training patterns"><span class="zoom-hint" aria-hidden="true">↗</span></button><figcaption class="figure-caption"><b>The Multi-Ratio ConceptMoE architecture.</b> Each input is encoded once. Ratio assignments select candidate boundaries; segment starts force a fresh concept. Compression views are packed for shared concept-level processing in the full model.</figcaption></figure><div class="method-notes"><p><span>01</span><b>Encode once</b>Every router reads the same token representations.</p><p><span>02</span><b>Select boundaries</b>Fixed or mixed assignments define each compression view.</p><p><span>03</span><b>Share computation</b>The same backbone and decoder process all ratios.</p></div><div class="compression-explorer" id="compression-modes" aria-labelledby="explorer-title">
+        <div class="explorer-header"><div><p class="mini-label">EXPLORE THE COMPRESSION MODES</p><h3 id="explorer-title">One conversation, one model</h3></div><span class="schematic-label">Illustrative schematic</span></div>
+        <p class="explorer-intro"><strong>Fixed:</strong> use one ratio for every turn. <strong>Mixed:</strong> change the ratio between turns, using the same model.<br>CR is the number of input tokens per concept: a larger CR produces fewer concepts for the backbone to process.</p>
+        <div class="segmented-controls" aria-label="Compression mode">
+          <button type="button" data-mode="cr2" aria-pressed="false">Fixed CR2</button><button type="button" data-mode="cr4" aria-pressed="false">Fixed CR4</button><button type="button" data-mode="cr8" aria-pressed="false">Fixed CR8</button><button type="button" data-mode="mixed" aria-pressed="true">Mixed across turns</button>
+        </div>
+        <p class="mode-note" id="mode-note" aria-live="polite">Mixed: Turn 1 → CR2, Turn 2 → CR8, Turn 3 → CR4. Different turns use different ratios within one conversation.</p>
+        <div class="turn-grid">
+          <article class="turn" data-turn="0"><div class="turn-heading"><span class="turn-number">TURN 01</span><span class="ratio-label cr2">CR2</span></div><h4>Solve the initial task</h4><p>Write a complete implementation.</p><div class="token-caption">24 new tokens (example)</div><div class="token-row" aria-hidden="true"></div><span class="compression-arrow" aria-hidden="true">↓</span><div class="concept-row" aria-hidden="true"></div><div class="concept-caption">24 ÷ 2 = 12 concepts</div></article>
+          <article class="turn" data-turn="1"><div class="turn-heading"><span class="turn-number">TURN 02</span><span class="ratio-label cr8">CR8</span></div><h4>Make a small refinement</h4><p>Rename variables and tidy formatting.</p><div class="token-caption">24 new tokens (example)</div><div class="token-row" aria-hidden="true"></div><span class="compression-arrow" aria-hidden="true">↓</span><div class="concept-row" aria-hidden="true"></div><div class="concept-caption">24 ÷ 8 = 3 concepts</div></article>
+          <article class="turn" data-turn="2"><div class="turn-heading"><span class="turn-number">TURN 03</span><span class="ratio-label cr4">CR4</span></div><h4>Handle the edge cases</h4><p>Add validation and boundary handling.</p><div class="token-caption">24 new tokens (example)</div><div class="token-row" aria-hidden="true"></div><span class="compression-arrow" aria-hidden="true">↓</span><div class="concept-row" aria-hidden="true"></div><div class="concept-caption">24 ÷ 4 = 6 concepts</div></article>
+        </div>
+        <div class="concept-history">
+          <h4>One growing concept sequence</h4>
+          <p id="history-count" aria-live="polite">After three turns: 12 + 3 + 6 = 21 concepts in one sequence.</p>
+          <div class="history-stream" id="history-stream" aria-label="Concepts from Turn 1, Turn 2, and Turn 3, in order"></div>
+          <p>T1 → T2 → T3 are successive turns of the same conversation. Each square represents one concept.</p>
+          <div class="shared-backbone"><span class="backbone-symbol" aria-hidden="true">◇</span> One shared concept backbone <span class="backbone-detail">Same weights for every ratio</span></div>
+          <p>Each new turn appends concepts at its chosen ratio. Earlier concepts and their history states stay unchanged.</p>
+        </div>
+        <p class="fine-print">This panel illustrates turn-wise inference with an example ratio schedule. Cross-ratio training instead samples ratios for contiguous segments within a sequence. Equal-sized token groups simplify the illustration; actual boundaries are learned and concept counts vary.</p>
+      </div>
+  </div>
+</section><section class="section section-light" id="results" aria-labelledby="results-title">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered section-title" id="results-title">Experimental Results</h2>
+    <div class="subsection-header"><h3>Strong at every fixed budget</h3><span class="quiet-badge">6 wins in 6 comparisons</span></div>
+      <p class="table-intro">CR2, CR4, and CR8 outperform compute-matched Large, Medium, and Small MoEs on both evaluation suites.</p>
+      <div class="table-scroll"><table class="fixed-table"><caption class="sr-only">Accuracy of fixed compression modes and their compute-matched MoE baselines</caption><thead><tr><th scope="col">Compute budget</th><th scope="col">Mode</th><th scope="col">PTBench <small>MoE → Ours</small></th><th scope="col">SFTBench <small>MoE → Ours</small></th></tr></thead><tbody><tr><th scope="row">High</th><td><span class="ratio-label cr2">CR2</span></td><td><span class="baseline-number">31.7</span><span class="value-arrow">→</span><strong>32.1</strong></td><td><span class="baseline-number">19.0</span><span class="value-arrow">→</span><strong>21.5</strong></td></tr><tr><th scope="row">Medium</th><td><span class="ratio-label cr4">CR4</span></td><td><span class="baseline-number">28.2</span><span class="value-arrow">→</span><strong>29.3</strong></td><td><span class="baseline-number">15.5</span><span class="value-arrow">→</span><strong>19.1</strong></td></tr><tr><th scope="row">Low</th><td><span class="ratio-label cr8">CR8</span></td><td><span class="baseline-number">25.4</span><span class="value-arrow">→</span><strong>27.6</strong></td><td><span class="baseline-number">13.1</span><span class="value-arrow">→</span><strong>17.2</strong></td></tr></tbody></table></div>
+      <p class="fine-print">Accuracy (%). Compute matching excludes sequence-length-dependent attention-map computation, following the paper's setup.</p>
+
+      <div class="mixed-results">
+        <div class="subsection-header"><div><p class="mini-label">MIXED-RATIO INFERENCE</p><h3>More accuracy. Less compute.</h3></div><div class="segmented-controls dataset-controls" aria-label="Evaluation dataset"><button type="button" data-dataset="codechat" aria-pressed="true">CodeChat</button><button type="button" data-dataset="cosql" aria-pressed="false">CoSQL</button></div></div>
+        <div class="dataset-summary" aria-live="polite"><div><span id="accuracy-metric">Combined Joint accuracy</span><strong id="mixed-accuracy">43.78<span>%</span></strong><p><b id="accuracy-gain">+5.87 pp</b> over the Large MoE</p></div><div><span>Realized computation</span><strong id="mixed-compute">1.0999 <span>PFLOPs</span></strong><p><b id="compute-saving">41.1% fewer FLOPs</b> than the Large MoE</p></div></div>
+        <div class="table-scroll"><table class="comparison-table"><caption id="dataset-caption">CodeChat · terminal-turn workload</caption><thead><tr><th scope="col">Model</th><th scope="col">Accuracy (%) ↑</th><th scope="col">FLOPs (PF) ↓</th></tr></thead><tbody id="comparison-body">
+          <tr><th scope="row">MoE Large</th><td>37.91</td><td>1.8662</td></tr><tr><th scope="row">MoE Medium</th><td>27.09</td><td>1.1198</td></tr><tr><th scope="row">MoE Small</th><td>18.68</td><td>0.7334</td></tr><tr class="group-start"><th scope="row">Multi-Ratio CR2</th><td>43.28</td><td>1.3072</td></tr><tr><th scope="row">Multi-Ratio CR4</th><td>35.37</td><td>0.9529</td></tr><tr><th scope="row">Multi-Ratio CR8</th><td>29.29</td><td>0.7795</td></tr><tr class="highlight-row"><th scope="row">Multi-Ratio Mixed <span>Ours</span></th><td>43.78</td><td>1.0999</td></tr><tr class="group-start"><th scope="row">SingleCR2 specialist</th><td>33.89</td><td>2.2290</td></tr><tr><th scope="row">SingleCR4 specialist</th><td>24.60</td><td>1.2784</td></tr><tr><th scope="row">SingleCR8 specialist</th><td>18.02</td><td>0.7326</td></tr>
+        </tbody></table></div>
+        <p class="fine-print">Results from the trained models in <a href="https://arxiv.org/abs/2610.14074v1">arXiv:2610.14074v1</a>. CodeChat uses Combined Joint accuracy; CoSQL uses SQLite execution accuracy. Multi-turn FLOPs include attention-map computation under the terminal-turn workload protocol.</p>
+      </div>
+    
+  </div>
+</section><section class="section" id="efficiency" aria-labelledby="efficiency-title">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered section-title" id="efficiency-title">Switching Compute Budgets</h2>
+    <p class="section-intro">Independent models maintain incompatible history states. Switching can add costly history re-prefill as a conversation grows.</p><figure class="figure-card paper-figure"><button class="figure-button" data-zoom="assets/model_switching_flops.png?v=arxiv-2610.14074v1" aria-label="Enlarge model switching FLOPs figure"><img src="assets/model_switching_flops.png?v=arxiv-2610.14074v1" width="1800" height="515" loading="lazy" alt="Under the same turn-wise schedule, Multi-Ratio Mixed uses 78.4 percent fewer FLOPs on CodeChat and 46.9 percent fewer on CoSQL than routing among independent models"><span class="zoom-hint" aria-hidden="true">↗</span></button><figcaption class="figure-caption"><b>Same schedule, different switching cost.</b> The routed baseline includes the extra history re-prefill needed after each model switch. This comparison measures algorithmic FLOPs, not wall-clock latency.</figcaption></figure><div class="efficiency-note"><div><span>CodeChat</span><strong>5.0895 <span>→</span> 1.0999 <small>PFLOPs</small></strong></div><div><span>CoSQL</span><strong>0.6250 <span>→</span> 0.3319 <small>PFLOPs</small></strong></div><p>Independent-model routing → Multi-Ratio Mixed<br>Using the same frozen turn-wise budget schedule.</p></div>
+  </div>
+</section><section class="section section-light" id="ablation" aria-labelledby="ablation-title">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered section-title" id="ablation-title">Cross-Ratio Training</h2>
+    <p class="section-intro">Training on cross-ratio patterns strengthens mixed-ratio inference while largely preserving fixed-ratio capability.</p><figure class="figure-card paper-figure"><button class="figure-button" data-zoom="assets/cross_ratio_exposure.png?v=arxiv-2610.14074v1" aria-label="Enlarge cross-ratio training ablation figure"><img src="assets/cross_ratio_exposure.png?v=arxiv-2610.14074v1" width="1800" height="515" loading="lazy" alt="Fully cross-ratio training changes PTBench by minus 0.30 points and SFTBench by plus 0.44 points while improving CodeChat by 6.14 points and CoSQL by 8.84 points"><span class="zoom-hint" aria-hidden="true">↗</span></button><figcaption class="figure-caption"><b>Cross-ratio exposure matters.</b> Relative to three homogeneous training views, three cross-ratio views improve mixed inference by <strong>6.14 pp on CodeChat</strong> and <strong>8.84 pp on CoSQL</strong>.</figcaption></figure>
+  </div>
+</section><section class="section" id="demo" aria-labelledby="demo-title">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered section-title" id="demo-title">Minimal Demo</h2>
+    <div class="code-section">
+      <div class="code-intro"><p>Independent routers. Shared modules. Fixed-ratio and mixed-ratio views, following the original ConceptMoE demo structure.</p><a class="button is-dark is-rounded" href="assets/MultiConceptMoE_demo.py" download>Download demo <span aria-hidden="true">↓</span></a></div>
+      <div class="code-panel"><div class="code-panel-header"><span class="code-dots" aria-hidden="true"><i></i><i></i><i></i></span><span>MultiConceptMoE_demo.py</span><span>Python</span></div><pre><code><span class="code-comment"># Install dependencies and run</span>
+python3 -m pip install torch einops
+python3 MultiConceptMoE_demo.py
+
+<span class="code-comment"># Inside the demo: one view per ratio</span>
+logits, aux_loss = model(input_ids)
+
+<span class="code-comment"># Independently sampled mixed-ratio views</span>
+logits, aux_loss = model(
+    input_ids, mixed_cr=<span class="code-keyword">True</span>
+)</code></pre><p>The demo uses random weights and placeholder attention/MoE layers to explain routing. It does not reproduce trained-model results or implement inference caches.</p></div>
+    </div>
+  </div>
+</section><section class="section" id="citation" aria-labelledby="citation-title">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered section-title" id="citation-title">BibTeX</h2>
+    <div class="citation-toolbar"><button type="button" class="button is-dark copy-button" id="copy-citation"><span>Copy BibTeX</span></button></div><pre><code id="bibtex">@misc{fu2026multiratio,
+  title = {One Model, Multiple Compute Budgets:
+           Multi-Ratio ConceptMoE for Flexible Compute Across Turns},
+  author = {Fu, Yiyang and Huang, Zihao and Han, Dongchen and
+            Gong, Shukai and Dong, Zhen and Min, Qiyang and Zhou, Daquan},
+  year = {2026},
+  eprint = {2610.14074},
+  archivePrefix = {arXiv},
+  primaryClass = {cs.LG},
+  url = {https://arxiv.org/abs/2610.14074}
+}</code></pre><p id="copy-status" class="copy-status" role="status" aria-live="polite"></p>
+  </div>
+</section></main>
+<footer class="footer">
+  <div class="container"><div class="columns is-centered"><div class="column is-8"><div class="content has-text-centered">
+    <p>Multi-Ratio ConceptMoE · One Model, Multiple Compute Budgets</p>
+    <p>Demo built on <a href="https://github.com/ZihaoHuang-notabot/ConceptMoE">ConceptMoE</a>.<br>
+    Website adapted from <a href="https://dagroup-pku.github.io/StableVLA/">StableVLA</a> · DAGroup, Peking University.<br>
+    Website template: <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> · <a href="licenses/NOTICE.txt">Third-party notices</a>.</p>
+  </div></div></div></div>
+</footer>
+<a class="scroll-to-top" id="scrollBtn" href="#top" aria-label="Back to top">↑</a>
+<dialog id="figure-dialog" aria-label="Expanded paper figure"><div class="dialog-toolbar"><span>Paper figure</span><button type="button" id="close-figure" aria-label="Close expanded figure">Close <span aria-hidden="true">×</span></button></div><img id="expanded-figure" alt=""><p id="expanded-caption"></p></dialog>
+</body>
+</html>
